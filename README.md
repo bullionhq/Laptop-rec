@@ -1,40 +1,41 @@
 # Laptop Recommendation Engine
 
-## Phase 0
+A Next.js + Supabase application that recommends laptops based on **use-case fit**, not price.  
+It finds the simplest/oldest machines that still fully meet the user’s needs and returns three tiers: **Minimum**, **Balanced**, and **Future-proof**.
 
-This is **Phase 0** of the Laptop Recommendation Engine.
+## Current Status
 
-Project scaffolding is complete and ready for development.
+**Phase 2 Complete** — End-to-end questionnaire → results flow works on top of the Phase 1 data layer and scoring engine. Questionnaire is v1 (6 steps: use cases → screen → portability → OS → performance → summary).
+
+| Phase | Status | Description |
+|-------|--------|-------------|
+| Phase 0 | ✅ Done | Project scaffolding, modern Supabase keys, folder structure |
+| Phase 1 | ✅ Done | Schema, seed, types, scoring engine, Server Action, offline fallback |
+| Phase 2 | ✅ Done | Questionnaire UI (v1), three-tier results page, Start over flow, loading + error states, mobile layout, local JSON fallback |
+| Phase 3+ | Planned | Auth, live product data, conversational layer |
 
 ## Tech Stack
 
 - **Next.js 16** (App Router, TypeScript)
 - **Tailwind CSS v4**
 - **Supabase** (`@supabase/supabase-js` + `@supabase/ssr`)
-- **Zod** for schema validation
+- **Zod** for validation
 
-## Supabase Keys
+## Supabase Keys (Modern)
 
-This project uses the **modern Supabase publishable + secret keys** (not the old ANON_KEY / SERVICE_ROLE_KEY naming):
+This project uses the **new publishable + secret keys** (not the legacy `anon` / `service_role` JWTs):
 
-| Environment Variable | Key Type | Prefix | Notes |
-|----------------------|----------|--------|-------|
-| `NEXT_PUBLIC_SUPABASE_URL` | Project URL | `NEXT_PUBLIC_` | Safe to expose client-side |
-| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Publishable key (replaces `ANON_KEY`) | `NEXT_PUBLIC_` | Safe to expose client-side, respects RLS |
-| `SUPABASE_SECRET_KEY` | Secret key (replaces `SERVICE_ROLE_KEY`) | **No `NEXT_PUBLIC_` prefix** | Never expose client-side, bypasses RLS |
+| Environment Variable | Key Type | Notes |
+|----------------------|----------|-------|
+| `NEXT_PUBLIC_SUPABASE_URL` | Project URL | Safe to expose |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Publishable key (`sb_publishable_...`) | Safe to expose, respects RLS |
+| `SUPABASE_SECRET_KEY` | Secret key (`sb_secret_...`) | **Server-only** — never prefix with `NEXT_PUBLIC_` |
 
-Copy `.env.example` to `.env.local` and fill in your actual values before running.
+Copy `.env.example` → `.env.local` and fill in your real values.
 
 ## Getting Started
 
 ```bash
+npm install
+cp .env.example .env.local   # then edit with your Supabase keys
 npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-## Next Step
-
-**Phase 1** — Database schema + scoring engine.
-# Laptop-rec
-# Laptop-rec
